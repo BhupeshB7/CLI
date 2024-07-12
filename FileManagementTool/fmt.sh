@@ -108,9 +108,9 @@ search_file() {
 
 # Main script
 while true; do
-    echo "---------------------"
-    echo "Enhanced File Management Tool"
-    echo "---------------------"
+    echo "----------------------"
+    echo " File Management Tool "
+    echo "----------------------"
     echo "1. List files"
     echo "2. File type analysis"
     echo "3. Calculate directory size"
