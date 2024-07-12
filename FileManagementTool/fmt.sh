@@ -29,12 +29,10 @@ detailed_file_info() {
 file_type_analysis() {
     echo "File type analysis:"
     echo "1. Count text files"
-    echo "2. Count image files"
     read -p "Enter your choice: " type_choice
 
     case $type_choice in
         1) count_text_files ;;
-        2) count_image_files ;;
         *) echo "Invalid choice." ;;
     esac
 }
@@ -45,11 +43,6 @@ count_text_files() {
     find . -type f -name "*.txt" | wc -l
 }
 
-# Function to count image files
-count_image_files() {
-    echo "Image files count:"
-    find . -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" \) | wc -l
-}
 
 # Function to calculate directory size
 calculate_directory_size() {
@@ -84,18 +77,50 @@ detailed_file_permissions() {
     ls -l "$filename"
 }
 
+# Function to rename a file
+rename_file() {
+    echo "Enter the current name of the file:"
+    read current_name
+    echo "Enter the new name:"
+    read new_name
+    mv "$current_name" "$new_name"
+    echo "File renamed successfully."
+}
+
+# Function to delete a file
+delete_file() {
+    echo "Enter the name of the file you want to delete:"
+    read file_to_delete
+    rm -i "$file_to_delete"
+    echo "File deleted."
+}
+
+# Function to search for a file
+search_file() {
+    echo "Enter the name of the file you want to search for:"
+    read search_name
+    if [ -e "$search_name" ]; then
+        echo "$search_name found in $(pwd)."
+    else
+        echo "$search_name not found in $(pwd)."
+    fi
+}
+
 # Main script
 while true; do
-    echo "----------------------"
-    echo " File Management Tool "
-    echo "----------------------"
+    echo "---------------------"
+    echo "Enhanced File Management Tool"
+    echo "---------------------"
     echo "1. List files"
     echo "2. File type analysis"
     echo "3. Calculate directory size"
     echo "4. Copy file"
     echo "5. Move file"
     echo "6. Detailed file permissions"
-    echo "7. Exit"
+    echo "7. Rename file"
+    echo "8. Delete file"
+    echo "9. Search file"
+    echo "10. Exit"
 
     read -p "Enter your choice: " choice
 
@@ -106,7 +131,10 @@ while true; do
         4) copy_file ;;
         5) move_file ;;
         6) detailed_file_permissions ;;
-        7) echo "Exiting..."; break ;;
-        *) echo "Invalid choice. Please enter a number between 1 and 7."
+        7) rename_file ;;
+        8) delete_file ;;
+        9) search_file ;;
+        10) echo "Exiting..."; break ;;
+        *) echo "Invalid choice. Please enter a number between 1 and 10."
     esac
 done
